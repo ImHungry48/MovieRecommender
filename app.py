@@ -36,15 +36,13 @@ def recommend():
     matched_title, recs = recommend_movies(user_input, df, similarity_matrix)
 
     if recs:
-        return jsonify({
-            "matched": matched_title,
-            "recommendations": [
-                {"title": film, "score": score}
-                for film, score in recs
-            ],
-            "suggestions": [],
-            "error": None
-        })
+        if recs:
+            return jsonify({
+                "matched": matched_title,
+                "recommendations": format_recommendations(recs),
+                "suggestions": [],
+                "error": None
+            })
 
     suggestions = suggest_titles(user_input, df)
     return jsonify({
@@ -54,6 +52,22 @@ def recommend():
         "error": None
     })
 
+def format_recommendations(recs):
+    if not recs:
+        return []
+
+    max_score = recs[0][1]
+
+    formatted = []
+    for film, score in recs:
+        relative_score = round((score / max_score) * 100) if max_score > 0 else 0
+        formatted.append({
+            "title": film,
+            "raw_score": score,
+            "match_score": relative_score
+        })
+
+    return formatted
 
 if __name__ == "__main__":
     app.run(debug=True)

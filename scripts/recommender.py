@@ -21,7 +21,12 @@ def load_movies():
 
 
 def build_tfidf_matrix(df):
-    vectorizer = TfidfVectorizer(stop_words="english")
+    vectorizer = TfidfVectorizer(
+        stop_words="english",
+        ngram_range=(1, 2),
+        max_df=0.85,
+        sublinear_tf=True
+    )
     tfidf_matrix = vectorizer.fit_transform(df["plot"])
     return vectorizer, tfidf_matrix
 
