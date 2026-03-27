@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Girly Movie Recommender 🎬💗</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffc0cb, #ffe4e1);
+            color: #5a2a4d;
+            text-align: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            margin-bottom: 24px;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            background: #fff0f5;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 8px 20px rgba(255, 182, 193, 0.5);
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .input-label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            background: #ffe4ec;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background: #ff69b4;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #ff1493;
+            transform: scale(1.03);
+        }
+
+        .secondary-btn {
+            background: #d98cab;
+        }
+
+        .secondary-btn:hover {
+            background: #c26d92;
+        }
+
+        .results {
+            margin-top: 24px;
+            text-align: left;
+            display: grid;
+            gap: 12px;
+        }
+
+        .movie-card {
+            background: #fff7fb;
+            padding: 14px;
+            border-radius: 18px;
+            box-shadow: 0 4px 10px rgba(255, 182, 193, 0.22);
+        }
+
+        .movie-title {
+            font-size: 1.05rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .movie-score {
+            font-size: 0.9rem;
+            color: #8a4d6e;
+        }
+
+        .message {
+            background: #fff7fb;
+            padding: 12px;
+            border-radius: 15px;
+            margin-top: 4px;
+        }
+
+        .section-title {
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        .suggestion-card {
+            background: #ffe4ec;
+            padding: 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .suggestion-card:hover {
+            background: #ffd2e2;
+            transform: scale(1.01);
+        }
+
+        .footer {
+            margin-top: 24px;
+            font-size: 0.85rem;
+            color: #a0527c;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 22px;
+            }
+
+            .button-row {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1> Girly Movie Recommender </h1>
+    <p class="subtitle">Bibble will help find your next cozy watch</p>
+
+    <div class="container">
+        <label for="movieInput" class="input-label">Choose a movie title</label>
+
+        <input
+            list="movieOptions"
+            type="text"
+            id="movieInput"
+            placeholder="e.g. Barbie in the Nutcracker"
+            onkeydown="handleKeyPress(event)"
+        />
+
+        <datalist id="movieOptions">
+            <option value="Barbie in the Nutcracker">
+            <option value="Barbie as Rapunzel">
+            <option value="Barbie of Swan Lake">
+            <option value="Barbie as the Princess and the Pauper">
+            <option value="Barbie: Fairytopia">
+            <option value="Barbie and the Magic of Pegasus">
+            <option value="Barbie Fairytopia: Mermaidia">
+            <option value="The Barbie Diaries">
+            <option value="Barbie in the 12 Dancing Princesses">
+            <option value="Barbie Fairytopia: Magic of the Rainbow">
+            <option value="Barbie as the Island Princess">
+            <option value="Barbie: Mariposa">
+            <option value="Barbie & the Diamond Castle">
+            <option value="Barbie in a Christmas Carol">
+            <option value="Barbie Presents: Thumbelina">
+            <option value="Barbie and the Three Musketeers">
+            <option value="Barbie in a Mermaid Tale">
+            <option value="Barbie: A Fashion Fairytale">
+            <option value="Barbie: A Fairy Secret">
+            <option value="Barbie: Princess Charm School">
+            <option value="Barbie: A Perfect Christmas">
+            <option value="Barbie in A Mermaid Tale 2">
+            <option value="Barbie: The Princess & the Popstar">
+            <option value="Barbie in the Pink Shoes">
+            <option value="Barbie: Mariposa & the Fairy Princess">
+            <option value="Barbie & Her Sisters in A Pony Tale">
+            <option value="Barbie: The Pearl Princess">
+            <option value="Barbie and the Secret Door">
+            <option value="Barbie in Princess Power">
+            <option value="Barbie in Rock 'N Royals">
+            <option value="Barbie & Her Sisters in the Great Puppy Adventure">
+            <option value="Barbie: Spy Squad">
+            <option value="Barbie: Star Light Adventure">
+            <option value="Barbie & Her Sisters in A Puppy Chase">
+            <option value="Barbie: Video Game Hero">
+            <option value="Barbie: Dolphin Magic">
+            <option value="Barbie: Princess Adventure">
+            <option value="Barbie & Chelsea: The Lost Birthday">
+            <option value="Barbie: Big City, Big Dreams">
+            <option value="Barbie: Mermaid Power">
+            <option value="Barbie: Epic Road Trip">
+            <option value="Barbie: Skipper and the Big Babysitting Adventure">
+            <option value="Barbie and Stacie to the Rescue">
+            <option value="Barbie & Teresa: Recipe for Friendship">
+            <option value="Bratz: Starring & Stylin'">
+            <option value="Bratz: Rock Angelz">
+            <option value="Bratz: Genie Magic">
+            <option value="Bratz Babyz: The Movie">
+            <option value="Passion 4 Fashion Diamondz">
+            <option value="Fashion Pixiez">
+            <option value="Sleep Over Adventure">
+            <option value="Bratz: The Movie">
+            <option value="Bratz Super Babyz">
+            <option value="Bratz Kidz: Fairy Tales">
+            <option value="Bratz: Girlz Really Rock!">
+            <option value="Bratz Babyz Save Christmas">
+            <option value="Bratz: Pampered Petz (Movie)">
+            <option value="Bratz: Desert Jewelz">
+            <option value="Bratz: Go to Paris the Movie">
+            <option value="Monster High: New Ghoul at School">
+            <option value="Monster High: Fright On!">
+            <option value="Monster High: Why Do Ghouls Fall in Love?">
+            <option value="Monster High: Escape from Skull Shores">
+            <option value="Monster High: Ghouls Rule">
+            <option value="Monster High: Friday Night Frights">
+            <option value="Monster High: Scaris: City of Frights">
+            <option value="Monster High: 13 Wishes">
+            <option value="Monster High: Frights, Camera, Action!">
+            <option value="Monster High: Freaky Fusion">
+            <option value="Monster High: Haunted">
+            <option value="Monster High: Boo York, Boo York">
+            <option value="Monster High: Great Scarrier Reef">
+            <option value="Welcome to Monster High">
+            <option value="Monster High: Electrified">
+            <option value="Monster High: The Movie">
+            <option value="Monster High 2">
+        </datalist>
+
+        <div class="button-row">
+            <button onclick="getRecommendations()">Recommend</button>
+            <button class="secondary-btn" onclick="clearResults()">Clear</button>
+        </div>
+
+        <div class="results" id="results">
+            <div class="message">Enter a movie to get recommendations</div>
+        </div>
+    </div>
+
+    <div class="footer">In compliance with government regulations, Bibble is paid a minimum wage salary of $2.00 a day.</div>
+
+    <script>
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                getRecommendations();
+            }
+        }
+
+        function clearResults() {
+            document.getElementById("movieInput").value = "";
+            document.getElementById("results").innerHTML =
+                `<div class="message">Enter a movie to get magical recommendations</div>`;
+        }
+
+        function selectSuggestion(title) {
+            document.getElementById("movieInput").value = title;
+            getRecommendations();
+        }
+
+        async function getRecommendations() {
+            const movie = document.getElementById("movieInput").value.trim();
+            const resultsDiv = document.getElementById("results");
+
+            if (!movie) {
+                resultsDiv.innerHTML = `<div class="message">Please enter a movie </div>`;
+                return;
+            }
+
+            resultsDiv.innerHTML = `<div class="message">Bibble is searching... </div>`;
+
+            try {
+                const response = await fetch("/recommend", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ movie: movie })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    resultsDiv.innerHTML = `<div class="message">${data.error}</div>`;
+                    return;
+                }
+
+                if (data.recommendations && data.recommendations.length > 0) {
+                    let html = `
+                        <div class="section-title">
+                            Because you liked <b>${data.matched}</b>:
+                        </div>
+                    `;
+
+                    data.recommendations.forEach(rec => {
+                        html += `
+                            <div class="movie-card">
+                                <div class="movie-title">🎬 ${rec.title}</div>
+                            </div>
+                        `;
+                    });
+
+                    resultsDiv.innerHTML = html;
+                } else if (data.suggestions && data.suggestions.length > 0) {
+                    let html = `
+                        <div class="message">
+                            Bibble couldn't find that movie 😢<br><br>
+                            <b>Did you mean:</b>
+                        </div>
+                    `;
+
+                    data.suggestions.forEach(title => {
+                        const safeTitle = title.replace(/'/g, "\\'");
+                        html += `
+                            <div class="suggestion-card" onclick="selectSuggestion('${safeTitle}')">
+                                ${title}
+                            </div>
+                        `;
+                    });
+
+                    resultsDiv.innerHTML = html;
+                } else {
+                    resultsDiv.innerHTML = `<div class="message">Bibble couldn't find that movie 😢</div>`;
+                }
+
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="message">It looks like Bibble ran into an issue. Please try again later.</div>`;
+            }
+        }
+    </script>
+
+</body>
+</html>
